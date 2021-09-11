@@ -1,0 +1,92 @@
+<div class="card">
+    <h4 *ngIf="isCreateMode" class="card-header">Create User</h4>
+    <h4 *ngIf="!isCreateMode" class="card-header">Update User</h4>
+    <div class="card-body">
+        <div class="form-container">
+            <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <label for="_id">UserID</label>
+                    <input type="text" formControlName="_id" class="form-control" [attr.disabled]="true"/>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col">
+                        <label for="createdAt">Created At</label>
+                        <input type="text" formControlName="createdAt" class="form-control" [attr.disabled]="true"/>
+                    </div>
+                    <div class="form-group col">
+                        <label for="updatedAt">Updated At</label>
+                        <input type="text" formControlName="updatedAt" class="form-control" [attr.disabled]="true"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="admin">Admin</label>
+                    <!--input type="text" formControlName="admin" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.admin.errors }" /-->
+                    <select formControlName="admin" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.admin.errors }">
+                        <option value="false">False</option>
+                        <option value="true">True</option>
+                    </select>
+                    <div *ngIf="submitted && f.admin.errors" class="invalid-feedback">
+                        <div *ngIf="f.admin.errors.required">Admin is required</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                        <div *ngIf="f.email.errors.required">E-mail is required</div>
+                        <div *ngIf="f.email.errors.email">E-mail is invalid</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+                    <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                        <div *ngIf="f.username.errors.required">Username is required</div>
+                    </div>
+                </div>
+                <div *ngIf="!isCreateMode">
+                    <h3 class="pt-3">Change Password</h3>
+                    <p>Leave blank to keep the same password</p>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                        <div *ngIf="f.password.errors.required">Password is required</div>
+                        <div *ngIf="f.password.errors.minlength">Password must be at least 8 characters</div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col">
+                        <label for="firstname">First Name</label>
+                        <input type="text" formControlName="firstname" class="form-control"/>
+                    </div>
+                    <div class="form-group col">
+                        <label for="lastname">Last Name</label>
+                        <input type="text" formControlName="lastname" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <select formControlName="gender" class="form-control">
+                        <option value=""></option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="birth">Date of birth</label>
+                    <input type="text" formControlName="birth" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <button [disabled]="loading" class="btn btn-primary">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                        Save
+                    </button>
+                    <a routerLink=".." class="btn btn-link">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

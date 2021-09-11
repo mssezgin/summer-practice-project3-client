@@ -1,0 +1,53 @@
+<div class="card">
+    <h4 *ngIf="isNewMode" class="card-header">Create Message</h4>
+    <h4 *ngIf="!isNewMode" class="card-header">Update Message</h4>
+    <div class="card-body">
+        <div class="form-container">
+            <form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <label>When</label>
+                    <input type="text" formControlName="when" class="form-control"  [attr.disabled]="true" [ngClass]="{ 'is-invalid': submitted && f.when.errors }" />
+                    <div *ngIf="submitted && f.when.errors" class="invalid-feedback">
+                        <div *ngIf="f.when.errors.required">When is required</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>From</label>
+                    <input type="text" formControlName="from" class="form-control" [attr.disabled]="true" [ngClass]="{ 'is-invalid': submitted && f.from.errors }" />
+                    <div *ngIf="submitted && f.from.errors" class="invalid-feedback">
+                        <div *ngIf="f.from.errors.required">From is required</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>To</label>
+                    <input type="text" formControlName="to" class="form-control" (input)="searchUsers($event)" (focusout)="candidates = []" [ngClass]="{ 'is-invalid': submitted && f.to.errors }" />
+                    <div *ngIf="submitted && f.to.errors" class="invalid-feedback">
+                        <div *ngIf="f.to.errors.required">To is required</div>
+                    </div>
+                    <div *ngIf="candidates.length">
+                        <div *ngFor="let candidate of candidates">{{candidate.username}}</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Subject</label>
+                    <input type="text" formControlName="subject" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label>Body</label>
+                    <textarea type="text" formControlName="body" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <button *ngIf="isNewMode" [disabled]="loading" class="btn btn-primary">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                        Save
+                    </button>
+                    <a *ngIf="!isNewMode" (click)="deleteMessage(messageId)" class="btn btn-danger">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                        Delete
+                    </a>
+                    <a routerLink=".." class="btn btn-link">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

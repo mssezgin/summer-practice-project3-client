@@ -1,0 +1,61 @@
+<h5>{{messageList.totalSize}} messages found.</h5>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th *ngIf="inboxOrSent === 'inbox'" style="width: 5%">
+                    <a [routerLink]="['.']" [queryParams]="{ sort: getSort('seen') }">Seen</a>
+                </th>
+                <th style="width: 25%">
+                    <a [routerLink]="['.']" [queryParams]="{ sort: getSort('when') }">When</a>
+                </th>
+                <th *ngIf="inboxOrSent === 'inbox'" style="width: 20%">
+                    <a [routerLink]="['.']" [queryParams]="{ sort: getSort('from.username') }">From</a>
+                </th>
+                <th *ngIf="inboxOrSent === 'sent'" style="width: 20%">
+                    <a [routerLink]="['.']" [queryParams]="{ sort: getSort('to.username') }">To</a>
+                </th>
+                <th style="width: 40%">
+                    <a [routerLink]="['.']" [queryParams]="{ sort: getSort('subject') }">Subject</a>
+                </th>
+                <th style="width: 10%"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let message of messageList.result" [class.table-success]="inboxOrSent === 'inbox' && !message.seen">
+                <td *ngIf="inboxOrSent === 'inbox'">{{(inboxOrSent === 'inbox' && !message.seen) ? 'New' : ''}}</td>
+                <td>{{message.when | moment}}</td>
+                <td *ngIf="inboxOrSent === 'inbox'">{{message.from.username}}</td>
+                <td *ngIf="inboxOrSent === 'sent'">{{message.to.username}}</td>
+                <td>{{message.subject}}</td>
+                <td style="white-space: nowrap">
+                    <a [routerLink]="['..', message._id]" class="btn btn-sm btn-primary mr-1">
+                        See
+                    </a>
+                    <button (click)="deleteMessage(message._id)" class="btn btn-sm btn-danger" [disabled]="$any(message).isDeleting">
+                        <span *ngIf="$any(message).isDeleting" class="spinner-border spinner-border-sm"></span>
+                        <span *ngIf="!$any(message).isDeleting">Delete</span>
+                    </button>
+                </td>
+            </tr>
+            <tr *ngIf="loading">
+                <td colspan="5" class="text-center">
+                    <span class="spinner-border spinner-border-lg align-center"></span>
+                </td>
+            </tr>
+            <tr *ngIf="!loading && !messageList.result.length">
+                <td colspan="5" class="text-center">
+                    Here is empty.
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<nav>
+    <ul class="pagination justify-content-center">
+        <li *ngFor="let p of pages" class="page-item" [class.disabled]="p == messageList.page">
+            <a class="page-link" [routerLink]="['.']" [queryParams]="{ page: p }">{{p}}</a>
+        </li>
+    </ul>
+</nav>

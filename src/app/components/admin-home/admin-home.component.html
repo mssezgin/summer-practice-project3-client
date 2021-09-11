@@ -1,0 +1,22 @@
+<h3>Welcome, {{currentUser.firstname || currentUser.username}}!</h3>
+<p>You're logged in as an Admin</p>
+
+<header style="margin: 1rem 0" *ngIf="currentUser">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" routerLink="users" routerLinkActive="active">Users</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" routerLink="messages" routerLinkActive="active">Messages</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" routerLink="logs" routerLinkActive="active">Logs</a>
+        </li>
+    </ul>
+</header>
+
+<main>
+    <div class="container">
+        <router-outlet></router-outlet>
+    </div>
+</main>

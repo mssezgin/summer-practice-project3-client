@@ -1,0 +1,61 @@
+<h5>{{logList.totalSize}} logs found.</h5>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th></th>
+                <th>
+                    <a [routerLink]="['.']" [queryParams]="{ sort: getSort('when') }">When</a>
+                </th>
+                <th>
+                    <a [routerLink]="['.']" [queryParams]="{ sort: getSort('actor.username') }">Actor</a>
+                </th>
+                <th>
+                    <a [routerLink]="['.']" [queryParams]="{ sort: getSort('action') }">Action</a>
+                </th>
+                <th>
+                    <a [routerLink]="['.']" [queryParams]="{ sort: getSort('success') }">Success</a>
+                </th>
+                <th>
+                    <a [routerLink]="['.']" [queryParams]="{ sort: getSort('resultMessage') }">Result Message</a>
+                </th>
+                <th>
+                    <a [routerLink]="['.']" [queryParams]="{ sort: getSort('ip') }">IP Address</a>
+                </th>
+                <th>
+                    <a [routerLink]="['.']" [queryParams]="{ sort: getSort('browser') }">Browser</a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let log of logList.result">
+                <td style="white-space: nowrap" class="delete-column">
+                    <button (click)="deleteLog(log._id)" class="btn btn-sm btn-danger" [disabled]="$any(log).isDeleting">
+                        <span *ngIf="$any(log).isDeleting" class="spinner-border spinner-border-sm"></span>
+                        <span *ngIf="!$any(log).isDeleting">Delete</span>
+                    </button>
+                </td>
+                <td>{{log.when | moment}}</td>
+                <td>{{log.actor.username || log.actor.email}}</td>
+                <td>{{log.action}}</td>
+                <td>{{log.success}}</td>
+                <td>{{log.resultMessage}}</td>
+                <td>{{log.ip}}</td>
+                <td>{{log.browser}}</td>
+            </tr>
+            <tr *ngIf="!logList.result || !logList.result.length">
+                <td colspan="8" class="text-center">
+                    <span class="spinner-border spinner-border-lg align-center"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<nav>
+    <ul class="pagination justify-content-center">
+        <li *ngFor="let p of pages" class="page-item" [class.disabled]="p == logList.page">
+            <a class="page-link" [routerLink]="['.']" [queryParams]="{ page: p }">{{p}}</a>
+        </li>
+    </ul>
+</nav>

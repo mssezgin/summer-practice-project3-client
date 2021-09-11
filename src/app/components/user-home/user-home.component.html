@@ -1,0 +1,21 @@
+<h3>Welcome, {{currentUser.firstname || currentUser.username}}!</h3>
+
+<header style="margin: 1rem 0" *ngIf="currentUser">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" routerLink="messages/inbox" routerLinkActive="active">Inbox</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" routerLink="messages/sent" routerLinkActive="active">Sent</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" routerLink="messages/new" routerLinkActive="active">New Message</a>
+        </li>
+    </ul>
+</header>
+
+<main>
+    <div class="container">
+        <router-outlet></router-outlet>
+    </div>
+</main>

@@ -1,0 +1,77 @@
+<h5>{{userList.totalSize}} users found.</h5>
+
+<a [routerLink]="['create']" class="btn btn-sm btn-success mb-2">New User</a>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th></th>
+                <th>
+                    <a [routerLink]="['.']" [queryParams]="{ sort: getSort('createdAt') }">Created At</a>
+                </th>
+                <th>
+                    <a [routerLink]="['.']" [queryParams]="{ sort: getSort('updatedAt') }">Updated At</a>
+                </th>
+                <th>
+                    <a [routerLink]="['.']" [queryParams]="{ sort: getSort('admin') }">Admin</a>
+                </th>
+                <th>
+                    <a [routerLink]="['.']" [queryParams]="{ sort: getSort('email') }">E-mail</a>
+                </th>
+                <th>
+                    <a [routerLink]="['.']" [queryParams]="{ sort: getSort('username') }">Username</a>
+                </th>
+                <th>
+                    <a [routerLink]="['.']" [queryParams]="{ sort: getSort('firstname') }">Firstname</a>
+                </th>
+                <th>
+                    <a [routerLink]="['.']" [queryParams]="{ sort: getSort('lastname') }">Lastname</a>
+                </th>
+                <!--
+                 <th>
+                    <a [routerLink]="['.']" [queryParams]="{ sort: 'gender' }">Gender</a>
+                </th>
+                <th>
+                    <a [routerLink]="['.']" [queryParams]="{ sort: 'birth' }">Date of Birth</a>
+                </th>
+                 -->
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of userList.result">
+                <td style="white-space: nowrap" class="delete-column">
+                    <a [routerLink]="[user._id]" class="btn btn-sm btn-primary mr-1">
+                        Update
+                    </a>
+                    <button (click)="deleteUser(user._id)" class="btn btn-sm btn-danger" [disabled]="$any(user).isDeleting">
+                        <span *ngIf="$any(user).isDeleting" class="spinner-border spinner-border-sm"></span>
+                        <span *ngIf="!$any(user).isDeleting">Delete</span>
+                    </button>
+                </td>
+                <td>{{user.createdAt | moment}}</td>
+                <td>{{user.updatedAt | moment}}</td>
+                <td>{{user.admin}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.username}}</td>
+                <td>{{user.firstname}}</td>
+                <td>{{user.lastname}}</td>
+                <!--
+                <td>{{user.gender}}</td>
+                <td>{{user.birth}}</td>
+                -->
+            </tr>
+            <tr *ngIf="!userList.result || !userList.result.length">
+                <td colspan="8" class="text-center">
+                    <span class="spinner-border spinner-border-lg align-center"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<nav>
+    <ul class="pagination justify-content-center">
+        <li *ngFor="let p of pages" class="page-item" [class.disabled]="p == userList.page">
+            <a class="page-link" [routerLink]="['.']" [queryParams]="{ page: p }">{{p}}</a>
+        </li>
+    </ul>
+</nav>
