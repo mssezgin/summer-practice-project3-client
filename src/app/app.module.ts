@@ -4,7 +4,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { ReactiveFormsModule } from "@angular/forms";
 import { AppRoutingModule } from './app-routing.module';
 
-// import { ApiService } from "./services/api.service";
 import { ErrorInterceptor } from "./helpers/error.interceptor";
 import { JwtInterceptor } from "./helpers/jwt.interceptor";
 
@@ -47,7 +46,6 @@ import { MomentPipe } from './pipes/moment.pipe';
         AppRoutingModule
     ],
     providers: [
-        // ApiService,
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
     ],

@@ -49,7 +49,7 @@ export class LogListComponent implements OnInit {
             .pipe(first())
             .subscribe(value => {
                 this.logList = value;
-                this.pages = [...Array(value.totalPages + 1).keys()].slice(1); // Array.from(Array(value.totalPages).keys());
+                this.pages = [...Array(value.totalPages + 1).keys()].slice(1);
             });
     }
 
@@ -61,7 +61,6 @@ export class LogListComponent implements OnInit {
                 .pipe(first())
                 .subscribe(value => {
                     this.alertService.success('Log deleted successfully.', true);
-                    // this.logList.result = this.logList.result.filter(x => x._id !== logId);
                     this.getAllLogs();
                 });
         } else {

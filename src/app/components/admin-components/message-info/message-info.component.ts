@@ -95,14 +95,11 @@ export class MessageInfoComponent implements OnInit {
         this.submitted = true;
         this.alertService.clear();
 
-        console.log('--MessageInfo onSubmit-- messageForm.value: ', this.messageForm.value); // TODO: delete this
         if (this.messageForm.invalid) {
-            console.log('invalid'); // TODO: delete this
             return;
         }
 
         this.loading = true;
-        console.log('getUserFormValues:', this.getUserFormValues()); // TODO: delete this
         if (this.isCreateMode) {
             this.createMessage();
         } else {

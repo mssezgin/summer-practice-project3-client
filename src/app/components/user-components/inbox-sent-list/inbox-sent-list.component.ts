@@ -35,7 +35,6 @@ export class InboxSentListComponent implements OnInit {
         private userService: UserService,
         private alertService: AlertService,
     ) {
-        // console.log(this.router.url); // TODO: delete this
         this.inboxOrSent = this.router.url.endsWith('sent') ? 'sent' : 'inbox';
     }
 
@@ -55,7 +54,7 @@ export class InboxSentListComponent implements OnInit {
             .pipe(first())
             .subscribe(value => {
                 this.messageList = value;
-                this.pages = [...Array(value.totalPages + 1).keys()].slice(1); // Array.from(Array(value.totalPages).keys());
+                this.pages = [...Array(value.totalPages + 1).keys()].slice(1);
                 this.loading = false;
             });
     }

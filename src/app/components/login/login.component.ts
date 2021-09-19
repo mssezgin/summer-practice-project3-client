@@ -11,13 +11,12 @@ import { AlertService } from "../../services/alert.service";
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.css']
 })
-
 export class LoginComponent implements OnInit {
 
-    loginForm!: FormGroup; // TODO: not initialized error
+    loginForm!: FormGroup;
     loading = false;
     submitted = false;
-    returnUrl!: string; // TODO: not initialized error
+    returnUrl!: string;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -26,7 +25,6 @@ export class LoginComponent implements OnInit {
         private authenticationService: AuthenticationService,
         private alertService: AlertService
     ) {
-        // redirect to home if already logged in
         if (this.authenticationService.currentUserValue) {
             this.router.navigate(['/user']);
         }
@@ -38,7 +36,6 @@ export class LoginComponent implements OnInit {
             password: ['', Validators.required]
         });
 
-        // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/user';
         switch (this.route.snapshot.queryParams['reason']) {
             case 'sessionExpired':
@@ -61,7 +58,6 @@ export class LoginComponent implements OnInit {
         }
 
         this.loading = true;
-        console.log('--Login onSubmit-- loginForm.value: ', this.loginForm.value); // TODO: delete this
         this.authenticationService.login(this.f.username.value, this.f.password.value)
             .pipe(first())
             .subscribe(

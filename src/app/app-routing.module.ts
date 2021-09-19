@@ -28,7 +28,6 @@ const routes: Routes = [
         component: UserHomeComponent,
         canActivate: [AuthGuard],
         children: [
-            // { path: 'profile', component:  },
             { path: '', pathMatch: 'full', redirectTo: 'messages/inbox' },
             { path: 'messages/inbox', component: InboxSentListComponent },
             { path: 'messages/sent', component: InboxSentListComponent },

@@ -8,10 +8,9 @@ import { AlertService } from "../../services/alert.service";
     templateUrl: './alert.component.html',
     styleUrls: ['./alert.component.css']
 })
-
 export class AlertComponent implements OnInit {
 
-    private subscription!: Subscription; // TODO: no initializer
+    private subscription!: Subscription;
     message: any;
 
     constructor(

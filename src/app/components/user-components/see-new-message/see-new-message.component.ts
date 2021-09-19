@@ -23,7 +23,7 @@ export class SeeNewMessageComponent implements OnInit {
     deleting = false;
     submitted = false;
     candidates: any[] = [];
-    
+
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,

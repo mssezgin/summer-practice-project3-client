@@ -16,7 +16,7 @@ export class UserInfoComponent implements OnInit {
 
     isCreateMode: boolean = true;
     userId!: string;
-    user?: User; // TODO: ? or !
+    user?: User;
     userForm!: FormGroup;
     loading = false;
     submitted = false;
@@ -46,20 +46,6 @@ export class UserInfoComponent implements OnInit {
             gender: [''],
             birth: ['']
         });
-
-        /* const userId = this.route.snapshot.params['id'];
-        if (userId) { // TODO: pipe(first()) ?
-            this.adminService.reqGetUserByUserID(userId)
-                .pipe(first())
-                .subscribe(value => {
-                    this.title = 'Update User';
-                    this.successMessage = 'User updated successfully.';
-                    this.user = value;
-                    console.log('--UserInfo-- this.user: ', this.user); // TODO: delete this
-                    this.setUserFormValues();
-                });
-                // .subscribe(x => this.userForm.patchValue(x));
-        } */
 
         if (!this.isCreateMode) {
             this.adminService.reqGetUserByUserID(this.userId)
@@ -95,7 +81,7 @@ export class UserInfoComponent implements OnInit {
                 admin: this.user.admin,
                 email: this.user.email,
                 username: this.user.username,
-                password: '', // this.user.password,
+                password: '',
                 firstname: this.user.firstname || '',
                 lastname: this.user.lastname || '',
                 gender: this.user.gender || '',
@@ -108,14 +94,11 @@ export class UserInfoComponent implements OnInit {
         this.submitted = true;
         this.alertService.clear();
 
-        console.log('--UserInfo onSubmit-- userForm.value: ', this.userForm.value); // TODO: delete this
         if (this.userForm.invalid) {
-            console.log('invalid'); // TODO: delete this
             return;
         }
 
         this.loading = true;
-        console.log('getUserFormValues:', this.getUserFormValues()); // TODO: delete this
         if (this.isCreateMode) {
             this.createUser();
         } else {

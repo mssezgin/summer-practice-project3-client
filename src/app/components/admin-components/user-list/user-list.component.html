@@ -27,14 +27,6 @@
                 <th>
                     <a [routerLink]="['.']" [queryParams]="{ sort: getSort('lastname') }">Lastname</a>
                 </th>
-                <!--
-                 <th>
-                    <a [routerLink]="['.']" [queryParams]="{ sort: 'gender' }">Gender</a>
-                </th>
-                <th>
-                    <a [routerLink]="['.']" [queryParams]="{ sort: 'birth' }">Date of Birth</a>
-                </th>
-                 -->
             </tr>
         </thead>
         <tbody>
@@ -55,10 +47,6 @@
                 <td>{{user.username}}</td>
                 <td>{{user.firstname}}</td>
                 <td>{{user.lastname}}</td>
-                <!--
-                <td>{{user.gender}}</td>
-                <td>{{user.birth}}</td>
-                -->
             </tr>
             <tr *ngIf="!userList.result || !userList.result.length">
                 <td colspan="8" class="text-center">

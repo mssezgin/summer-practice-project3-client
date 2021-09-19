@@ -15,7 +15,7 @@ import { AlertService } from "../../services/alert.service";
 
 export class RegisterComponent implements OnInit {
 
-    registerForm!: FormGroup; // TODO: not initialized error
+    registerForm!: FormGroup;
     loading = false;
     submitted = false;
 
@@ -26,7 +26,6 @@ export class RegisterComponent implements OnInit {
         private userService: UserService,
         private alertService: AlertService
     ) {
-        // redirect to home if already logged in
         if (this.authenticationService.currentUserValue) {
             this.router.navigate(['/']);
         }
@@ -55,7 +54,6 @@ export class RegisterComponent implements OnInit {
         }
 
         this.loading = true;
-        console.log('--Register onSubmit-- registerForm.value: ', this.registerForm.value); // TODO: delete this
         this.userService.reqRegister(this.registerForm.value)
             .pipe(first())
             .subscribe(

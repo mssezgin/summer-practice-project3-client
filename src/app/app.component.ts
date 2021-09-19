@@ -12,7 +12,7 @@ import { User } from "./models/user";
 })
 export class AppComponent {
 
-    currentUser!: User; // TODO: not initialized error
+    currentUser!: User;
 
     constructor(
         private router: Router,
